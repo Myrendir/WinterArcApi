@@ -1,0 +1,6 @@
+@WinterArcApi_HostAddress = http://localhost:5080
+
+GET {{WinterArcApi_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
