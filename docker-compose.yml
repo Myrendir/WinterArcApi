@@ -1,0 +1,41 @@
+version: '3.8'
+
+services:
+  postgres:
+    image: postgres:15-alpine
+    container_name: winterarc-postgres
+    environment:
+      POSTGRES_DB: winterarc
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+    ports:
+      - "5432:5432"
+    volumes:
+      - postgres_data:/var/lib/postgresql/data
+    networks:
+      - winterarc-network
+
+  api:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: winterarc-api
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - ConnectionStrings__DefaultConnection=Host=postgres;Database=winterarc;Username=postgres;Password=postgres
+      - Jwt__Key=WinterArc2024SecretKeyForJWTAuthentication!
+      - Jwt__Issuer=WinterArcApi
+      - Jwt__Audience=WinterArcApp
+    ports:
+      - "8080:8080"
+    depends_on:
+      - postgres
+    networks:
+      - winterarc-network
+
+volumes:
+  postgres_data:
+
+networks:
+  winterarc-network:
+    driver: bridge

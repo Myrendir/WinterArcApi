@@ -1,0 +1,78 @@
+@WinterArcApi_HostAddress = http://localhost:8080
+
+### Register User
+POST {{WinterArcApi_HostAddress}}/auth/register
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "email": "john@example.com",
+  "password": "SecurePassword123"
+}
+
+###
+
+### Login
+POST {{WinterArcApi_HostAddress}}/auth/login
+Content-Type: application/json
+
+{
+  "username": "john_doe",
+  "password": "SecurePassword123"
+}
+
+###
+
+### Get All Goals
+GET {{WinterArcApi_HostAddress}}/goals
+Authorization: Bearer {{token}}
+
+###
+
+### Create Goal
+POST {{WinterArcApi_HostAddress}}/goals
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Exercise Daily",
+  "description": "Go for a 30-minute run",
+  "xpReward": 150
+}
+
+###
+
+### Update Goal
+PUT {{WinterArcApi_HostAddress}}/goals/1
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "title": "Exercise Daily - Updated",
+  "isCompleted": true
+}
+
+###
+
+### Delete Goal
+DELETE {{WinterArcApi_HostAddress}}/goals/1
+Authorization: Bearer {{token}}
+
+###
+
+### Create Check-In
+POST {{WinterArcApi_HostAddress}}/goals/1/checkins
+Authorization: Bearer {{token}}
+Content-Type: application/json
+
+{
+  "note": "Completed 5k run today!"
+}
+
+###
+
+### Get User Overview
+GET {{WinterArcApi_HostAddress}}/me/overview
+Authorization: Bearer {{token}}
+
+###
